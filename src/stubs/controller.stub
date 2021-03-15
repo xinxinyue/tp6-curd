@@ -1,0 +1,87 @@
+<?php
+declare (strict_types = 1);
+
+namespace {%namespace%};
+
+use {%serviceNamespace%};
+use app\BaseController;
+use think\facade\Request;
+use think\facade\Log;
+
+class {%className%} extends BaseController {
+
+    protected $checkAdminLogin = ['read', 'getlist', 'create', 'update', 'delete'];
+
+    public function read()
+    {
+        $id = input('get.id');
+        $service = new {%service%}();
+        if(!empty($id) && $service->read($id)){
+            return $this->generateResponse(config('response_code.success'), '', $service->_data);
+        }else{
+            return $this->generateResponse(config('response_code.validate_error'), '信息不存在');
+        }
+    }
+
+    public function getList()
+    {
+        $service = new {%service%}();
+        $page = input('get.page', 1);
+        $limit = input('get.limit', 10);
+        if($service->getList($page, $limit)){
+            return $this->generateResponse(config('response_code.success'),'',$service->_data);
+        }else{
+            return $this->generateResponse(config('response_code.validate_error'), $service->_error);
+        }
+
+    }
+
+    public function create()
+    {
+        if (Request::isPost()){
+            $service = new {%service%}();
+            $data = input('post.');
+
+            if(!$service->create($data)){
+                Log::write($service->_error,'notice');
+                return $this->generateResponse($service->_code, $service->_error);
+            }
+            //事件监听
+            return $this->generateResponse();
+        }else
+            return $this->generateResponse(config('response_code.method_error'),'请求方式错误');
+    }
+
+    public function update()
+    {
+        if (Request::isPost()){
+            $service = new {%service%}();
+            $data = input('post.');
+            if(!$service->update($data)){
+                Log::write($service->_error,'notice');
+                return $this->generateResponse( $service->_code, $service->_error);
+            }
+            //事件监听
+            return $this->generateResponse();
+        }else
+            return $this->generateResponse(config('response_code.method_error'),'请求方式错误');
+
+    }
+
+    public function delete()
+    {
+        $id = input('id/d');
+        if(empty($id)){
+            return $this->generateResponse(config('response_code.validate_error'), 'id不存在');
+        }
+
+        $service = new {%service%}();
+        if($service->delete($id)){
+            //事件监听
+            return $this->generateResponse();
+        }else{
+            return $this->generateResponse(config('response_code.validate_error'), '删除失败');
+        }
+    }
+
+}

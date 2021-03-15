@@ -1,0 +1,29 @@
+{
+    "name": "xinxinyue/tp-api-curd",
+    "description": "thinkphp6.0 curd api",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "zhangkaiyue1020",
+            "email": "546854479@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "topthink/framework": "^6.0.0"
+    },
+    "extra": {
+        "think": {
+            "config": {
+                "curd": "src/config.php"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "xinxinyue\\curd\\": "src/"
+        }
+    }
+}

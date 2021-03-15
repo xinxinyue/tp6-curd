@@ -1,0 +1,33 @@
+<?php
+declare (strict_types = 1);
+
+namespace {%namespace%};
+
+use think\Validate;
+
+class {%className%} extends Validate
+{
+    /**
+     * 验证规则
+     * @var array
+     */
+    protected $rule = [
+{%rule%}
+    ];
+
+    /**
+     * 错误信息
+     * @var array
+     */
+    protected $message = [
+{%message%}
+    ];
+
+    /**
+     * 验证场景
+     * @var array
+     */
+    protected $scene = [
+{%scene%}
+    ];
+}

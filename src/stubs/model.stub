@@ -1,0 +1,22 @@
+<?php
+declare (strict_types = 1);
+
+namespace {%namespace%};
+
+use think\Model;
+use think\model\concern\SoftDelete;
+
+class {%className%} extends Model
+{
+    {%deleteField%}
+    protected $table = '{%tableName%}';
+
+{%autoField%}
+
+    public function getCount($where)
+    {
+        return $this::where($where)->count();
+    }
+
+}
+

@@ -1,0 +1,81 @@
+<?php
+declare (strict_types = 1);
+
+namespace {%namespace%};
+
+use app\BaseService;
+use {%modelNamespace%};
+
+class {%className%} extends BaseService {
+
+    public function read($id, $field = '*')
+    {
+        $model = new {%model%}();
+        $where['{%primaryKey%}'] = $id;
+        if($info = $model->field($field)->where($where)->find()){
+            $this->_data = $info->toArray();
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getList($page = 1, $limit = 10,  $field =  null, $where = [], $order = '{%primaryKey%} desc')
+    {
+        $model = new {%model%}();
+        $data['count'] = $model->getCount($where);
+        if($field){
+            $model = $model->field($field);
+        }
+        if(!empty($where)){
+            $model = $model->where($where);
+        }
+
+        $list = $model->page($page)->limit($limit)->order($order)->select();
+        $data['list'] = empty($data) ? [] : $list->toArray();
+        $this->_data = $data;
+        return true;
+    }
+
+    public function create($data)
+    {
+        //验证-添加
+        $this->validate($data, '{%validate%}.create');     //失败自动抛出异常
+        //新增数据
+        $model = new {%model%}();
+        if($model->save($data)){
+            {%event%}
+            return true;
+        } else {
+            $this->_code = config('response_code.validate_error');
+            return false;
+        }
+
+    }
+
+    public function update($data)
+    {
+        //验证
+        $this->validate($data, '{%validate%}.update');     //失败自动抛出异常
+
+        //修改
+        if({%model%}::update($data, ['{%primaryKey%}' => $data['id']])) {
+            {%event%}
+            return true;
+        }else{
+            $this->_code = config('response_code.validate_error');
+            return false;
+        }
+
+    }
+
+    public function delete($id)
+    {
+        if({%model%}::destroy($id)){
+            return true;
+        } else {
+            return true;
+        }
+
+    }
+}
