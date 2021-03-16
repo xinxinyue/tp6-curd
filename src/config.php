@@ -14,5 +14,8 @@ return [
         'update_field' => 'update_time',
         'auto_timestamp' => 'int',
     ],
+    'service' => [
+        'admin_event' => true,
+    ]
 
 ];

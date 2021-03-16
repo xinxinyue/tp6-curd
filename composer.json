@@ -5,7 +5,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "zhangkaiyue1020",
+            "name": "xinxinyue",
             "email": "546854479@qq.com"
         }
     ],
@@ -17,7 +17,7 @@
     "extra": {
         "think": {
             "config": {
-                "curd": "src/config.php"
+                "curd": "config.php"
             }
         }
     },
