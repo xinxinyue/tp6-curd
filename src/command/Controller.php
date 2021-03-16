@@ -88,14 +88,15 @@ class Controller extends Make
      */
     protected function getServicePath($serviceName, $className):string
     {
-        if(stripos('\\', $serviceName)){
+        if(stripos($serviceName, '\\')){
             return $serviceName;
         }else{
+            $app = '';
             if (strpos($serviceName, '@')) {
                 [$app, $serviceName] = explode('@', $serviceName);
             }
             $validateArr = array_slice(explode('\\', $className), 0, -2);
-            array_push($validateArr,'service', $serviceName);
+            array_push($validateArr,$app,'service', $serviceName);
             return trim(implode('\\', $validateArr), '\\');
         }
 

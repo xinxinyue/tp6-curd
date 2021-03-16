@@ -113,14 +113,15 @@ class Service extends Make
      */
     protected function getModelPath($modelName, $className):string
     {
-        if(stripos('\\', $modelName)){
+        if(stripos($modelName, '\\')){
             return $modelName;
         }else{
+            $app = '';
             if (strpos($modelName, '@')) {
                 [$app, $modelName] = explode('@', $modelName);
             }
             $modelArr = array_slice(explode('\\', $className), 0, -2);
-            array_push($modelArr,'model', $modelName);
+            array_push($modelArr, $app,'model', $modelName);
             return trim(implode('\\', $modelArr), '\\');
         }
     }
