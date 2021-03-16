@@ -17,7 +17,7 @@
     "extra": {
         "think": {
             "config": {
-                "curd": "config.php"
+                "curd": "src/config.php"
             }
         }
     },
