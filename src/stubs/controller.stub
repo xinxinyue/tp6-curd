@@ -26,8 +26,8 @@ class {%className%} extends BaseController {
     public function getList()
     {
         $service = new {%service%}();
-        $page = input('get.page', 1);
-        $limit = input('get.limit', 10);
+        $page = input('get.page/d', 1);
+        $limit = input('get.limit/d', 10);
         if($service->getList($page, $limit)){
             return $this->generateResponse(config('response_code.success'),'',$service->_data);
         }else{
