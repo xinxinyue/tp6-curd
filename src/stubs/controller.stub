@@ -14,7 +14,7 @@ class {%className%} extends BaseController {
 
     public function read()
     {
-        $id = input('get.id');
+        $id = input('get.id/d');
         $service = new {%service%}();
         if(!empty($id) && $service->read($id)){
             return $this->generateResponse(config('response_code.success'), '', $service->_data);
