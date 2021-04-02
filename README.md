@@ -1,9 +1,9 @@
 # tp6-curd
 基于thinkphp6框架的命令行工具
 
-##部署
+## 部署
 
-###composer安装
+### composer安装
 >composer require xinxinyue/xinxinyue/tp-api-curd
 
 安装完成后会新增配置文件curd.php
@@ -43,9 +43,9 @@ config目录下console.php配置文件新增
     ],
 ~~~
 
-##使用
+## 使用
 
-###查看命令是否存在
+### 查看命令是否存在
 
 >php think
 
@@ -63,7 +63,7 @@ make
 
 会多出curd的命令
 
-###实际使用
+### 实际使用
 
 >php think make:curd admin@News prefix_news
 
