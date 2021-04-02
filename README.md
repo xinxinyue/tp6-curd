@@ -69,4 +69,4 @@ make
 
 会生成admin应用下的 NewsController、NewsService、NewsModel、NewsValidate,注意这里的service层只是单纯的逻辑层。
 
-也可以单独生成每个文件，先写这些吧，有人用再写
+也可以单独生成每个文件，先写这些吧，**有人用**再写
