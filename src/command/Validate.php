@@ -88,8 +88,8 @@ class Validate extends Make
                 $sceneInsert[] = "'{$value['COLUMN_NAME']}'";
             }
         }
-        $insert = implode($sceneInsert, ', ');
-        $update = implode($sceneUpdate, ', ');
+        $insert = implode(', ', $sceneInsert);
+        $update = implode(', ', $sceneUpdate);
         $scene .= "        'create' => [{$insert}],\n        'update' => [{$update}],";
 
         $search = [
