@@ -4,7 +4,7 @@
 ## 部署
 
 ### composer安装
->composer require xinxinyue/xinxinyue/tp-api-curd
+>composer require xinxinyue/tp-api-curd
 
 安装完成后会新增配置文件curd.php
 
@@ -15,7 +15,7 @@
  */
 
 return [
-    'stub_path'     => false,		//自定义模板路径
+    'stub_path'     => false,		//自定义模板路径  复制src/stubs/ 下的模板并修改为自己的模板
 
     'model' => [
         'delete_filed' => 'delete_time',	//软删除字段
@@ -25,7 +25,15 @@ return [
     ],
     'service' => [
         'admin_event' => true,	//是否添加管理员日志事件--自用
+    ],
+    'response_code' => [
+        'success' => 1000,
+        'validate_error' => 1001,
+        'not_login' => 1002,
+        'method_error' => 1003,
+        //自由拓展
     ]
+
 
 ];
 ~~~
@@ -67,6 +75,24 @@ make
 
 >php think make:curd admin@News prefix_news
 
-会生成admin应用下的 NewsController、NewsService、NewsModel、NewsValidate,注意这里的service层只是单纯的逻辑层。
+以上命令会生成admin应用下的 NewsController、NewsService、NewsModel、NewsValidate,注意这里的service层只是单纯的逻辑层。
 
-也可以单独生成每个文件，先写这些吧，**有人用**再写
+‘prefix_news’ 修改为带前缀的表名, admin修改为应用名 News修改为controller、serviced等名称
+
+也可以单独生成每个文件,例只希望生成test_news表的model，生成到index应用下，可以使用以下命令:
+
+>php think make:curd-model index@News test_news
+
+在单独生成controller和service的时候需要分别制定对应的service和model
+
+单独生成controller:
+>php think make:curd-controller index@News test_news app\index\service\NewsService
+
+'app\index\service\NewsService' 为需要依赖的service命名空间
+
+单独生成service:
+>php think make:curd-service index@News test_news app\index\model\NewsModel
+
+'app\index\service\NewsModel' 为需要依赖的model命名空间
+
+model和validate则不需要依赖
