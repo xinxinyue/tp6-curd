@@ -3,10 +3,24 @@ declare (strict_types = 1);
 
 namespace {%namespace%};
 
-use app\BaseService;
 use {%modelNamespace%};
 
-class {%className%} extends BaseService {
+class {%className%} {
+    /**
+     * 响应状态
+     * @var bool
+     */
+    public $_code = 1000;
+
+    /**相应数据
+     * @var null
+     */
+    public $_data = null;
+
+    /**响应错误信息
+     * @var null
+     */
+    public $_error = null;
 
     public function read($id, $field = '*')
     {
@@ -47,7 +61,7 @@ class {%className%} extends BaseService {
             {%event%}
             return true;
         } else {
-            $this->_code = config('response_code.validate_error');
+            $this->_code = config('curd.response_code.validate_error');
             return false;
         }
 
@@ -63,7 +77,7 @@ class {%className%} extends BaseService {
             {%event%}
             return true;
         }else{
-            $this->_code = config('response_code.validate_error');
+            $this->_code = config('curd.response_code.validate_error');
             return false;
         }
 
