@@ -1,5 +1,5 @@
 # tp6-curd
-基于thinkphp6框架的命令行工具,根据数据表生成对应得增删改查API
+基于thinkphp6框架多应用模式的命令行工具,根据数据表生成对应得增删改查API
 
 ## 部署
 
@@ -24,7 +24,7 @@ return [
         'auto_timestamp' => 'int',	//自动完成字段类型
     ],
     'service' => [
-        'admin_event' => true,	//是否添加管理员日志事件--自用
+        'admin_event' => false,	//是否添加管理员日志事件--自用
     ],
     'response_code' => [
         'success' => 1000,
@@ -86,12 +86,12 @@ make
 在单独生成controller和service的时候需要分别制定对应的service和model
 
 单独生成controller:
->php think make:curd-controller index@News test_news app\index\service\NewsService
+>php think make:curd-controller index@News test_news --require app\index\service\NewsService
 
 'app\index\service\NewsService' 为需要依赖的service命名空间
 
 单独生成service:
->php think make:curd-service index@News test_news app\index\model\NewsModel
+>php think make:curd-service index@News test_news --require app\index\model\NewsModel
 
 'app\index\service\NewsModel' 为需要依赖的model命名空间
 

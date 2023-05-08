@@ -54,7 +54,7 @@ class {%className%} {
     public function create($data)
     {
         //验证-添加
-        $this->validate($data, '{%validate%}.create');     //失败自动抛出异常
+        validate('{%validate%}.create')->check($data);     //失败自动抛出异常
         //新增数据
         $model = new {%model%}();
         if($model->save($data)){
@@ -70,10 +70,9 @@ class {%className%} {
     public function update($data)
     {
         //验证
-        $this->validate($data, '{%validate%}.update');     //失败自动抛出异常
-
+        validate('{%validate%}.update')->check($data);     //失败自动抛出异常
         //修改
-        if({%model%}::update($data, ['{%primaryKey%}' => $data['id']])) {
+        if({%model%}::update($data, ['{%primaryKey%}' => $data['{%primaryKey%}']])) {
             {%event%}
             return true;
         }else{

@@ -15,7 +15,7 @@ return [
         'auto_timestamp' => 'int',
     ],
     'service' => [
-        'admin_event' => true,
+        'admin_event' => false,     //admin操作事件，默认关闭（待开发公用版本）
     ],
     'response_code' => [
         'success' => 1000,

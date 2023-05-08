@@ -45,6 +45,21 @@ class Model extends Make
         return parent::getNamespace($app) . '\\model';
     }
 
+    /**
+     * 获取表主键
+     * @param $tableName
+     * @return string
+     * @throws Exception
+     */
+    protected function getPrimaryKey($tableName)
+    {
+        $field = Db::query("SELECT column_name FROM INFORMATION_SCHEMA.`KEY_COLUMN_USAGE` WHERE table_name='{$tableName}' AND constraint_name='PRIMARY'");
+        if(empty($field)){
+            throw new Exception(sprintf("The '{$tableName}' table Primary key does not exist"));
+        }
+        return $field[0]['column_name'];
+    }
+
     public function buildClass($name)
     {
         $stub = file_get_contents($this->getStub());
@@ -78,12 +93,14 @@ class Model extends Make
             }
 
         }
+        $primaryKey = $this->getPrimaryKey($this->input->getArgument('tableName'));
         $search = [
             '{%className%}',
             '{%namespace%}',
             '{%deleteField%}',
             '{%autoField%}',
             '{%tableName%}',
+            '{%primaryKey%}',
         ];
 
         $replace = [
@@ -92,6 +109,7 @@ class Model extends Make
             $deleteField,
             $autoField,
             $this->input->getArgument('tableName'),
+            $primaryKey,
         ];
         return str_replace($search, $replace, $stub);
     }

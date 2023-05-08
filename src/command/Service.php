@@ -121,7 +121,7 @@ class Service extends Make
                 [$app, $modelName] = explode('@', $modelName);
             }
             $modelArr = array_slice(explode('\\', $className), 0, -2);
-            array_push($modelArr, $app,'model', $modelName);
+            array_push($modelArr,'model', $modelName);
             return trim(implode('\\', $modelArr), '\\');
         }
     }
@@ -138,6 +138,6 @@ class Service extends Make
         } else {
             $app = '';
         }
-        return $app . '/' . str_replace('Service', 'Validate', $class);
+        return str_replace('Service', 'Validate', $class);
     }
 }

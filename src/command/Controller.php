@@ -96,7 +96,7 @@ class Controller extends Make
                 [$app, $serviceName] = explode('@', $serviceName);
             }
             $validateArr = array_slice(explode('\\', $className), 0, -2);
-            array_push($validateArr,$app,'service', $serviceName);
+            array_push($validateArr,'service', $serviceName);
             return trim(implode('\\', $validateArr), '\\');
         }
 

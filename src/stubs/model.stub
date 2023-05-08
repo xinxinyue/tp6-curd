@@ -10,6 +10,7 @@ class {%className%} extends Model
 {
     {%deleteField%}
     protected $table = '{%tableName%}';
+    protected $pk = '{%primaryKey%}';
 
 {%autoField%}
 

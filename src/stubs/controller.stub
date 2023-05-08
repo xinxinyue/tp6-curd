@@ -14,9 +14,9 @@ class {%className%} {
         $id = input('get.id/d');
         $service = new {%service%}();
         if(!empty($id) && $service->read($id)){
-            return $this->generateResponse(config('curd.response_code.success'), '', $service->_data);
+            return json(['code' => config('curd.response_code.success'), 'msg' => '', 'data' => $service->_data]);
         }else{
-            return $this->generateResponse(config('curd.response_code.validate_error'), '信息不存在');
+            return json(['code' => config('curd.response_code.validate_error'), 'msg' => '信息不存在']);
         }
     }
 
@@ -26,9 +26,9 @@ class {%className%} {
         $page = input('get.page/d', 1);
         $limit = input('get.limit/d', 10);
         if($service->getList($page, $limit)){
-            return $this->generateResponse(config('curd.response_code.success'),'',$service->_data);
+            return json(['code' => config('curd.response_code.success'), 'msg' => '', 'data' => $service->_data]);
         }else{
-            return $this->generateResponse(config('curd.response_code.validate_error'), $service->_error);
+            return json(['code' => config('curd.response_code.validate_error'), 'msg' => $service->_error]);
         }
 
     }
@@ -41,12 +41,11 @@ class {%className%} {
 
             if(!$service->create($data)){
                 Log::write($service->_error,'notice');
-                return $this->generateResponse($service->_code, $service->_error);
+                return json(['code' => $service->_code, 'msg' => $service->_error]);
             }
-            //事件监听
-            return $this->generateResponse();
+            return json(['code' => config('curd.response_code.success'), 'msg' => '']);
         }else
-            return $this->generateResponse(config('curd.response_code.method_error'),'请求方式错误');
+            return json(['code' => config('curd.response_code.method_error'), 'msg' => '请求方式错误']);
     }
 
     public function update()
@@ -56,12 +55,12 @@ class {%className%} {
             $data = input('post.');
             if(!$service->update($data)){
                 Log::write($service->_error,'notice');
-                return $this->generateResponse( $service->_code, $service->_error);
+                return json(['code' => $service->_code, 'msg' => $service->_error]);
             }
             //事件监听
-            return $this->generateResponse();
+            return json(['code' => config('curd.response_code.success'), 'msg' => '']);
         }else
-            return $this->generateResponse(config('curd.response_code.method_error'),'请求方式错误');
+            return json(['code' => config('curd.response_code.method_error'), 'msg' => '请求方式错误']);
 
     }
 
@@ -69,15 +68,15 @@ class {%className%} {
     {
         $id = input('id/d');
         if(empty($id)){
-            return $this->generateResponse(config('curd.response_code.validate_error'), 'id不存在');
+            return json(['code' => config('curd.response_code.validate_error'), 'msg' => 'id不存在']);
         }
 
         $service = new {%service%}();
         if($service->delete($id)){
             //事件监听
-            return $this->generateResponse();
+            return json(['code' => config('curd.response_code.success'), 'msg' => '']);
         }else{
-            return $this->generateResponse(config('curd.response_code.validate_error'), '删除失败');
+            return json(['code' => config('curd.response_code.validate_error'), 'msg' => '删除失败']);
         }
     }
 
