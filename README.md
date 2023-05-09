@@ -43,11 +43,11 @@ config目录下console.php配置文件新增
 ~~~
 // 指令定义
     'commands' => [
-        'xinxinyue\curd\command\model',
-        'xinxinyue\curd\command\validate',
-        'xinxinyue\curd\command\service',
-        'xinxinyue\curd\command\controller',
-        'xinxinyue\curd\command\curd',
+        'xinxinyue\curd\command\Model',
+        'xinxinyue\curd\command\Validate',
+        'xinxinyue\curd\command\Service',
+        'xinxinyue\curd\command\Controller',
+        'xinxinyue\curd\command\Curd',
     ],
 ~~~
 
